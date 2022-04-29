@@ -37,7 +37,6 @@ if (navigator.geolocation) {
 
 			const coords = [latitude, longitude];
 
-
 			// Note: From leaflet
 			const map = L.map('map').setView(coords, 13);
 			L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -47,6 +46,13 @@ if (navigator.geolocation) {
 			L.marker(coords).addTo(map)
 				.bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
 				.openPopup();
+
+		//	Todo: Extract position on the map on click
+			map.on('click', function(mapEvent) {
+				console.log(mapEvent);
+
+			})
+
 
 		}, function () {
 			alert('Could not get your position');
