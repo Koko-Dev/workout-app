@@ -45,11 +45,14 @@ if (navigator.geolocation) {
 
 			//	Todo: Extract position on the map on click
 			map.on('click', function(mapEvent) {
-				console.log(mapEvent);
+				// console.log(mapEvent);
 				const { lat, lng } = mapEvent.latlng;
 				L.marker([lat, lng])
 					.addTo(map)
-					.bindPopup('Workout')
+					.bindPopup(L.popup({
+						maxWidth: 250,
+						minWidth: 100
+					}))
 					.openPopup();
 
 			})
