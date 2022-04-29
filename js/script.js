@@ -49,13 +49,15 @@ if (navigator.geolocation) {
 				const { lat, lng } = mapEvent.latlng;
 				L.marker([lat, lng])
 					.addTo(map)
-					.bindPopup(L.popup({
-						maxWidth: 250,
-						minWidth: 100,
-						autClose: false,
-						closeOnClick: false,
-						className: 'running-popup'
+					.bindPopup(
+						L.popup({
+							maxWidth: 250,
+							minWidth: 100,
+							autClose: false,
+							closeOnClick: false,
+							className: 'running-popup'
 					}))
+					.setPopupContent('Workout')
 					.openPopup();
 
 			})
