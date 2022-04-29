@@ -51,7 +51,8 @@ if (navigator.geolocation) {
 					.addTo(map)
 					.bindPopup(L.popup({
 						maxWidth: 250,
-						minWidth: 100
+						minWidth: 100,
+						autClose: false
 					}))
 					.openPopup();
 
