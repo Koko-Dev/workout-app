@@ -53,7 +53,8 @@ if (navigator.geolocation) {
 						maxWidth: 250,
 						minWidth: 100,
 						autClose: false,
-						closeOnClick: false
+						closeOnClick: false,
+						className: 'running-popup'
 					}))
 					.openPopup();
 
