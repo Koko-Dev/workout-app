@@ -16,6 +16,7 @@
 		rel="stylesheet"
 	/>
 	
+<!--	<script src="js/other.js"></script>-->
 	<link rel="stylesheet" href="css/style.css" />
 	
 	<link
@@ -33,88 +34,118 @@
 	<script defer src="js/script.js"></script>
 	<title>workout-app</title>
 </head>
+
 <body>
-	<div class="sidebar"><img src="images/run.png"
-	                          alt=""
-	                          class="logo">
-		<!-- /.logo --></div>
+	<div class="sidebar">
+		<img src="logo.png" alt="Logo" class="logo" />
+		
+		<ul class="workouts">
+			<form class="form hidden">
+				
+				<!--	        Choice -->
+				<div class="form__row">
+					<label class="form__label">Type</label>
+					<select class="form__input form__input--type">
+						<option value="running">Running</option>
+						<option value="cycling">Cycling</option>
+					</select>
+				</div>
+				
+				<!--	        Distance -->
+				<div class="form__row">
+					<label class="form__label">Distance</label>
+					<input class="form__input form__input--distance" placeholder="km" />
+				</div>
+				
+				<!--	        Duration -->
+				<div class="form__row">
+					<label class="form__label">Duration</label>
+					<input
+						class="form__input form__input--duration"
+						placeholder="min"
+					/>
+				</div>
+				
+				<!--	        Cadence -->
+				<div class="form__row">
+					<label class="form__label">Cadence</label>
+					<input
+						class="form__input form__input--cadence"
+						placeholder="step/min"
+					/>
+				</div>
+				
+				<!--	        Elevation -->
+				<div class="form__row form__row--hidden">
+					<label class="form__label">Elev Gain</label>
+					<input
+						class="form__input form__input--elevation"
+						placeholder="meters"
+					/>
+				</div>
+				<button class="form__btn">OK</button>
+			</form>
+			
+			<!-- <li class="workout workout--running" data-id="1234567890">
+			  <h2 class="workout__title">Running on April 14</h2>
+			  <div class="workout__details">
+				<span class="workout__icon">🏃‍♂️</span>
+				<span class="workout__value">5.2</span>
+				<span class="workout__unit">km</span>
+			  </div>
+			  <div class="workout__details">
+				<span class="workout__icon">⏱</span>
+				<span class="workout__value">24</span>
+				<span class="workout__unit">min</span>
+			  </div>
+			  <div class="workout__details">
+				<span class="workout__icon">⚡️</span>
+				<span class="workout__value">4.6</span>
+				<span class="workout__unit">min/km</span>
+			  </div>
+			  <div class="workout__details">
+				<span class="workout__icon">🦶🏼</span>
+				<span class="workout__value">178</span>
+				<span class="workout__unit">spm</span>
+			  </div>
+			</li>
 	
-	<ul class="workouts">
-		<form action=""
-		      class="form hidden">
-			
-<!--			Choice -->
-			<div class="form__row">
-				<label for="exercise" class="form__label">Type</label>
-				<!-- /.form__label -->
-				<select name="exercise"
-				        id="exercise"
-				        class="form__input form__input--type">
-					<option value="running">Running</option>
-					<option value="walking">Walking</option>
-				</select>
-				<!-- /#.form__input form__input--type -->
-			</div>
-			<!-- /.form__row -->
-			
-<!--			Distance -->
-			<div class="form__row">
-				<label for="distance"
-				       class="form__label">Distance</label>
-				<!-- /.form__label -->
-				<input type="text"
-				       id="distance"
-				       class="form__input form__input--distance"
-					   placeholder="mi">
-				<!-- /.form__input form__input--distance -->
-			</div>
-			<!-- /.form__row -->
-			
-<!--			Duration -->
-			<div class="form__row">
-				<label for="duration" class="form__label">Duration</label>
-				<!-- /.form__label -->
-				<input type="text"
-				       id="duration"
-				       class="form__input form__input--duration"
-				       placeholder="min">
-				<!-- /.form__input form__input--duration -->
-			</div>
-<!-- /.form__row -->
-
-<!--			Cadence -->
-			<div class="form__row">
-				<label for="cadence" class="form__label">Cadence</label>
-				<!-- /.form__label -->
-				<input type="text"
-				       id="cadence"
-				       class="form__input form__input--cadence"
-				       placeholder="step/min">
-				<!-- /.form__input form__input--cadence -->
-			</div>
-<!-- /.form__row -->
-
-<!--			Elevation -->
-			<div class="form__row form__row--hidden">
-				<label for="elevation" class="form__label">Osha Trail</label>
-				<!-- /.form__label -->
-				<input type="text"
-				       id="elevation"
-				       class="form__input form__input--elevation"
-					   placeholder="feet">
-				<!-- /.form__input form__input--elevation -->
-			</div>
-			<!-- /.form__row form__row--hidden -->
-			
-			<button class="form__btn">OK</button>
-<!-- /.form__btn -->
-		</form>
-		<!-- /.form hidden -->
-	</ul>
-	<!-- /.workouts -->
+			<li class="workout workout--cycling" data-id="1234567891">
+			  <h2 class="workout__title">Cycling on April 5</h2>
+			  <div class="workout__details">
+				<span class="workout__icon">🚴‍♀️</span>
+				<span class="workout__value">27</span>
+				<span class="workout__unit">km</span>
+			  </div>
+			  <div class="workout__details">
+				<span class="workout__icon">⏱</span>
+				<span class="workout__value">95</span>
+				<span class="workout__unit">min</span>
+			  </div>
+			  <div class="workout__details">
+				<span class="workout__icon">⚡️</span>
+				<span class="workout__value">16</span>
+				<span class="workout__unit">km/h</span>
+			  </div>
+			  <div class="workout__details">
+				<span class="workout__icon">⛰</span>
+				<span class="workout__value">223</span>
+				<span class="workout__unit">m</span>
+			  </div>
+			</li> -->
+		</ul>
+		
+		<p class="cp">
+			&copy; Copyright by
+			<a
+				class="twitter-link"
+				target="_blank"
+				href="#"
+			>Koko-Dev</a
+			>.
+		</p>
+	</div>
 	
-	
-	<!-- /.sidebar -->
-
+	<div id="map"></div>
 </body>
 </html>
