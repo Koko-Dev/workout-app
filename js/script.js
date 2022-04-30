@@ -25,6 +25,10 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
  https://www.google.com/maps/@37.0722523,-76.3753041,15z
 */
+
+// Todo:  Reassign leaflet's map variable  and the mapEvent to the global scope
+let map, mapEvent;
+
 if (navigator.geolocation) {
 	navigator
 		.geolocation
@@ -38,30 +42,42 @@ if (navigator.geolocation) {
 			const coords = [latitude, longitude];
 
 			// Note: From leaflet
-			const map = L.map('map').setView(coords, 13);
+			map = L.map('map').setView(coords, 13);
 			L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(map);
 
+			// Important: Handling clicks on map
+			// Note:  It is inside this event handler that we
+			//  gain access to mapEvent, but we want to use mapEvent
+			//  in the form submit event listener below because we
+			//  need access to latitude and longitude
 			//	Todo: Extract position on the map on click
-			map.on('click', function(mapEvent) {
+			map.on('click', function(mapE) {
+				mapEvent = mapE;
 				form.classList.remove('hidden');
 				inputDistance.focus();
-				// const { lat, lng } = mapEvent.latlng;
-				// L.marker([lat, lng])
-				// 	.addTo(map)
-				// 	.bindPopup(
-				// 		L.popup({
-				// 			maxWidth: 250,
-				// 			minWidth: 100,
-				// 			autoClose: false,
-				// 			closeOnClick: false,
-				// 			className: 'running-popup'
-				// 	}))
-				// 	.setPopupContent('Workout')
-				// 	.openPopup();
 			})
 		}, function () {
 			alert('Could not get your position');
 		})
 }
+
+//  Todo: Add an event listener which displays a marker whenever
+//   the form is submitted
+form.addEventListener('submit', function (e) {
+	e.preventDefault();
+	const { lat, lng } = mapEvent.latlng;
+	L.marker([lat, lng])
+		.addTo(map)
+		.bindPopup(
+			L.popup({
+				maxWidth: 250,
+				minWidth: 100,
+				autoClose: false,
+				closeOnClick: false,
+				className: 'running-popup'
+		}))
+		.setPopupContent('Workout')
+		.openPopup();
+})
