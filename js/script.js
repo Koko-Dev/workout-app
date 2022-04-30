@@ -67,6 +67,12 @@ if (navigator.geolocation) {
 //   the form is submitted
 form.addEventListener('submit', function (e) {
 	e.preventDefault();
+
+	// Clear input fields
+	inputDistance.value = inputCadence.value = inputDuration.value = inputElevation.value = '';
+
+
+	// Display marker
 	const { lat, lng } = mapEvent.latlng;
 	L.marker([lat, lng])
 		.addTo(map)
@@ -81,3 +87,5 @@ form.addEventListener('submit', function (e) {
 		.setPopupContent('Workout')
 		.openPopup();
 })
+
+
