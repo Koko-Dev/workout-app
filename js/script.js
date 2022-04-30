@@ -46,6 +46,7 @@ if (navigator.geolocation) {
 			//	Todo: Extract position on the map on click
 			map.on('click', function(mapEvent) {
 				form.classList.remove('hidden');
+				inputDistance.focus();
 				// const { lat, lng } = mapEvent.latlng;
 				// L.marker([lat, lng])
 				// 	.addTo(map)
