@@ -37,11 +37,35 @@ class App {
 	// Get Position
 	_getPosition() {
 		console.log('_getPosition');
+		if (navigator.geolocation) {
+			navigator
+				.geolocation
+				.getCurrentPosition(this._loadMap, function () {
+					alert('Could not get your position');
+				})
+		}
 	}
 
 	// Load Map
-	_loadMap() {
+	_loadMap(position) {
 		console.log('Load Map');
+
+		const {latitude} = position.coords;
+		const {longitude} = position.coords;
+		console.log(latitude, longitude);
+
+		const coords = [latitude, longitude];
+
+		map = L.map('map').setView(coords, 13);
+		L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
+		map.on('click', function (mapE) {
+			mapEvent = mapE;
+			form.classList.remove('hidden');
+			inputDistance.focus();
+		})
 	}
 
 	// Show Form
@@ -97,39 +121,7 @@ class App {
 
 }
 
-if (navigator.geolocation) {
-	navigator
-		.geolocation
-		.getCurrentPosition(function (position) {
-			const {latitude} = position.coords;
-			const {longitude} = position.coords;
-			console.log(latitude, longitude);
-			// console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
-			// console.log(`https://www.google.com/maps/@${latitude},${longitude}`)
 
-			const coords = [latitude, longitude];
-
-			// Note: From leaflet
-			map = L.map('map').setView(coords, 13);
-			L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(map);
-
-			// Important: Handling clicks on map
-			// Note:  It is inside this event handler that we
-			//  gain access to mapEvent, but we want to use mapEvent
-			//  in the form submit event listener below because we
-			//  need access to latitude and longitude
-			//	Todo: Extract position on the map on click
-			map.on('click', function (mapE) {
-				mapEvent = mapE;
-				form.classList.remove('hidden');
-				inputDistance.focus();
-			})
-		}, function () {
-			alert('Could not get your position');
-		})
-}
 
 //  Todo: Add an event listener which displays a marker whenever
 //   the form is submitted
