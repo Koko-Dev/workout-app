@@ -14,18 +14,23 @@ const inputElevation = document.querySelector('.form__input--elevation');
 let map, mapEvent;
 
 class App {
+	// Define map and mapEvent as private properties of the object
+	// class App using a private class field (private instance properties)
+	// https://ultimatecourses.com/blog/private-properties-methods-javascript-classes
+	#map;
+	#mapEvent;
 	constructor() {
-		// Get coordinates when page loads
+		// Step: Get position coordinates when page loads
 		this._getPosition();
 	}
 
 	// Get Position
 	_getPosition() {
-		console.log('_getPosition');
+		console.log('Get Position');
 		if (navigator.geolocation) {
 			navigator
 				.geolocation
-				.getCurrentPosition(this._loadMap, function () {
+				.getCurrentPosition(this._loadMap.bind(this), function () {
 					alert('Could not get your position');
 				})
 		}
@@ -38,16 +43,17 @@ class App {
 		const {latitude} = position.coords;
 		const {longitude} = position.coords;
 		console.log(latitude, longitude);
+		console.log('this is:  ', this);
 
 		const coords = [latitude, longitude];
 
-		map = L.map('map').setView(coords, 13);
+		this.#map = L.map('map').setView(coords, 13);
 		L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
+		}).addTo(this.#map);
 
-		map.on('click', function (mapE) {
-			mapEvent = mapE;
+		this.#map.on('click', function (mapE) {
+			this.#mapEvent = mapE;
 			form.classList.remove('hidden');
 			inputDistance.focus();
 		})
@@ -72,6 +78,8 @@ class App {
 	_newWorkout() {
 		console.log('New Workout');
 	}
+
+	//step one complete =================
 
 	// Render Workout Marker
 	_renderWorkoutMarker() {
@@ -106,7 +114,7 @@ class App {
 
 }
 
-//  Create an instance of class App
+//  Step: Create an instance of class App
 const app = new App();
 
 
