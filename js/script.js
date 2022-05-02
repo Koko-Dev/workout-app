@@ -23,25 +23,10 @@ class App {
 		// Step: Get position coordinates when page loads
 		this._getPosition();
 
-		//  Todo: Add an event listener which displays a
-		//   marker whenever the form is submitted
-		// Fixme:  _netWorkout's this keyword is bound to form,
-		//  but even though we bind it to class 'this' it still brings
-		//  up error 'Cannot write private memeber #mapEvent
-		//  to object whose clsss did not declare it
 		form.addEventListener('submit', this._newWorkout.bind(this));
 
-
 // Todo: toggle the input form based on <select> options Running or Cycling
-		inputType.addEventListener('change', function (e) {
-			inputElevation
-				.closest('.form__row')
-				.classList.toggle('form__row--hidden');
-
-			inputCadence.closest('.form__row')
-				.classList
-				.toggle('form__row--hidden');
-		})
+		inputType.addEventListener('change', this._toggleElevationField);
 
 	}
 
@@ -93,12 +78,19 @@ class App {
 	// Toggle Elevation Field
 	_toggleElevationField() {
 		console.log('Toggle Elev');
+		inputElevation
+			.closest('.form__row')
+			.classList.toggle('form__row--hidden');
+
+		inputCadence.closest('.form__row')
+			.classList
+			.toggle('form__row--hidden');
 	}
 
 	// New Workout
 	_newWorkout(e) {
 		console.log('New Workout');
-		// console.log('this inside of _newWorkout', this);
+		console.log('this inside of _newWorkout', this);
 		e.preventDefault();
 
 		// Clear input fields
