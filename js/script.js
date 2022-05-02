@@ -42,6 +42,12 @@ class Cycling extends Workout {
 		super(coords, distance, duration);
 		this.elevationGain = elevationGain;
 	}
+	
+	calcSpeed() {
+		// calculated in hours so must divide by 60
+		this.speed = this.distance / (this.duration / 60);
+		return this.speed;
+	}
 }
 
 class App {
