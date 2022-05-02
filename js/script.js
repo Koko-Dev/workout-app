@@ -11,6 +11,14 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+class Workout {
+	constructor(coords, distance, duration) {
+		this.coords = coords;
+		this.distance = distance;  //km
+		this.duration = duration;  // min
+	}
+}
+
 class App {
 	#map;
 	#mapEvent;
@@ -95,6 +103,7 @@ class App {
 			.setPopupContent('Workout')
 			.openPopup();
 	}
+
 	// Render Workout Marker
 	_renderWorkoutMarker() {
 		console.log('Render Workout Marker');
@@ -124,8 +133,6 @@ class App {
 	reset() {
 		console.log('Reset');
 	}
-
-
 }
 
 //  Step: Create an instance of class App
