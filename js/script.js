@@ -11,23 +11,14 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-let map, mapEvent;
-
 class App {
-	// Define map and mapEvent as private properties of the object
-	// class App using a private class field (private instance properties)
-	// https://ultimatecourses.com/blog/private-properties-methods-javascript-classes
 	#map;
 	#mapEvent;
 	constructor() {
-		// Step: Get position coordinates when page loads
 		this._getPosition();
 
 		form.addEventListener('submit', this._newWorkout.bind(this));
-
-// Todo: toggle the input form based on <select> options Running or Cycling
 		inputType.addEventListener('change', this._toggleElevationField);
-
 	}
 
 	// Get Position
@@ -49,7 +40,6 @@ class App {
 		const {latitude} = position.coords;
 		const {longitude} = position.coords;
 		console.log(latitude, longitude);
-		console.log('this inside of _loadMap:  ', this);
 
 		const coords = [latitude, longitude];
 
@@ -90,7 +80,6 @@ class App {
 	// New Workout
 	_newWorkout(e) {
 		console.log('New Workout');
-		console.log('this inside of _newWorkout', this);
 		e.preventDefault();
 
 		// Clear input fields
@@ -106,9 +95,6 @@ class App {
 			.setPopupContent('Workout')
 			.openPopup();
 	}
-
-	//step one complete =================
-
 	// Render Workout Marker
 	_renderWorkoutMarker() {
 		console.log('Render Workout Marker');
