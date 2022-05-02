@@ -63,6 +63,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class App {
 	#map;
 	#mapEvent;
+
 	constructor() {
 		this._getPosition();
 
@@ -129,6 +130,13 @@ class App {
 	// New Workout
 	_newWorkout(e) {
 		console.log('New Workout');
+
+		// Helper function to determine if input is a number
+		const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
+
+		// Helper function to determine if number is positive
+		const allPositive = (...inputs) => inputs.every(inp => inp > 0);
+
 		e.preventDefault();
 
 		// step: Get data from the form
@@ -139,17 +147,28 @@ class App {
 		const duration = +inputDuration.value;
 
 
-
 		// step: Check if data is valid
 
 		// step: If activity running, then create running object
 		if (type === 'running') {
 			const cadence = +inputCadence.value;
+			// Check if data is valid
+			if (
+				!validInputs(distance, duration, cadence) ||
+				!allPositive(distance, duration, cadence)
+			)
+				return alert('Inputs must be positive numbers');
 		}
 
 		// step: If activity cycling, then create cycling object
 		if (type === 'cycling') {
 			const elevation = +inputElevation.value;
+			if (
+				!validInputs(
+					distance, duration, elevation) ||
+				!allPositive(distance, duration)
+			)
+				return alert('Inputs must be a number');
 		}
 
 		// step: Add new object to workout array
@@ -159,7 +178,6 @@ class App {
 		// step: Render workout on list
 
 		// step:  Hide form and clear input fields;
-
 
 
 		// Clear input fields
