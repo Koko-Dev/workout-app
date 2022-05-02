@@ -22,6 +22,27 @@ class App {
 	constructor() {
 		// Step: Get position coordinates when page loads
 		this._getPosition();
+
+		//  Todo: Add an event listener which displays a
+		//   marker whenever the form is submitted
+		// Fixme:  _netWorkout's this keyword is bound to form,
+		//  but even though we bind it to class 'this' it still brings
+		//  up error 'Cannot write private memeber #mapEvent
+		//  to object whose clsss did not declare it
+		form.addEventListener('submit', this._newWorkout.bind(this));
+
+
+// Todo: toggle the input form based on <select> options Running or Cycling
+		inputType.addEventListener('change', function (e) {
+			inputElevation
+				.closest('.form__row')
+				.classList.toggle('form__row--hidden');
+
+			inputCadence.closest('.form__row')
+				.classList
+				.toggle('form__row--hidden');
+		})
+
 	}
 
 	// Get Position
@@ -43,7 +64,7 @@ class App {
 		const {latitude} = position.coords;
 		const {longitude} = position.coords;
 		console.log(latitude, longitude);
-		console.log('this is:  ', this);
+		console.log('this inside of _loadMap:  ', this);
 
 		const coords = [latitude, longitude];
 
@@ -52,16 +73,16 @@ class App {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(this.#map);
 
-		this.#map.on('click', function (mapE) {
-			this.#mapEvent = mapE;
-			form.classList.remove('hidden');
-			inputDistance.focus();
-		})
+		// Step: Handling clicks on map
+		this.#map.on('click', this._showForm.bind(this));
 	}
 
 	// Show Form
-	_showForm() {
+	_showForm(mapE) {
 		console.log('Show Form');
+		this.#mapEvent = mapE;
+		form.classList.remove('hidden');
+		inputDistance.focus();
 	}
 
 	// Hide Form
@@ -75,8 +96,23 @@ class App {
 	}
 
 	// New Workout
-	_newWorkout() {
+	_newWorkout(e) {
 		console.log('New Workout');
+		// console.log('this inside of _newWorkout', this);
+		e.preventDefault();
+
+		// Clear input fields
+		inputDistance.value = inputCadence.value = inputDuration.value = inputElevation.value = '';
+
+		// Display marker
+		const {lat, lng} = this.#mapEvent.latlng;
+		L.marker([lat, lng])
+			.addTo(this.#map)
+			.bindPopup(L.popup({
+				maxWidth: 250, minWidth: 100, autoClose: false, closeOnClick: false, className: 'running-popup'
+			}))
+			.setPopupContent('Workout')
+			.openPopup();
 	}
 
 	//step one complete =================
@@ -118,32 +154,3 @@ class App {
 const app = new App();
 
 
-//  Todo: Add an event listener which displays a marker whenever
-//   the form is submitted
-form.addEventListener('submit', function (e) {
-	e.preventDefault();
-
-	// Clear input fields
-	inputDistance.value = inputCadence.value = inputDuration.value = inputElevation.value = '';
-
-
-	// Display marker
-	const {lat, lng} = mapEvent.latlng;
-	L.marker([lat, lng])
-		.addTo(map)
-		.bindPopup(L.popup({
-			maxWidth: 250, minWidth: 100, autoClose: false, closeOnClick: false, className: 'running-popup'
-		}))
-		.setPopupContent('Workout')
-		.openPopup();
-})
-
-inputType.addEventListener('change', function (e) {
-	inputElevation
-		.closest('.form__row')
-		.classList.toggle('form__row--hidden');
-
-	inputCadence.closest('.form__row')
-		.classList
-		.toggle('form__row--hidden');
-})
