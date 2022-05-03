@@ -174,6 +174,8 @@ class App {
 				!allPositive(distance, duration)
 			)
 				return alert('Inputs must be a numbers!');
+
+			workout = new Cycling([lat, lng], distance, duration, elevation);
 		}
 
 
