@@ -63,6 +63,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class App {
 	#map;
 	#mapEvent;
+	#workouts = [];
 
 	constructor() {
 		this._getPosition();
@@ -131,6 +132,7 @@ class App {
 	_newWorkout(e) {
 		console.log('New Workout');
 
+
 		// Helper function to determine if input is a number
 		const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
 
@@ -141,24 +143,28 @@ class App {
 
 		// step: Get data from the form
 		const type = inputType.value; // running or cycling
-
-		// Convert immediately to a number
 		const distance = +inputDistance.value;
 		const duration = +inputDuration.value;
+		const {lat, lng} = this.#mapEvent.latlng;
 
 
-		// step: Check if data is valid
 
 		// step: If activity running, then create running object
 		if (type === 'running') {
 			const cadence = +inputCadence.value;
-			// Check if data is valid
+			// step: Check if data is valid
 			if (
 				!validInputs(distance, duration, cadence) ||
 				!allPositive(distance, duration, cadence)
 			)
-				return alert('Inputs must be positive numbers');
+				return alert('Inputs must be positive numbers!');
+
+			// step: Add new object to workout array
+			const workout = new Running([lat, lng],  distance, duration, cadence);
+			this.#workouts.push(workout);
 		}
+
+
 
 		// step: If activity cycling, then create cycling object
 		if (type === 'cycling') {
@@ -168,23 +174,33 @@ class App {
 					distance, duration, elevation) ||
 				!allPositive(distance, duration)
 			)
-				return alert('Inputs must be a number');
+				return alert('Inputs must be a numbers!');
 		}
 
-		// step: Add new object to workout array
+
+
+
+
+
 
 		// step: Render workout on map as marker
 
+
+
 		// step: Render workout on list
 
+
+
 		// step:  Hide form and clear input fields;
+
+
 
 
 		// Clear input fields
 		inputDistance.value = inputCadence.value = inputDuration.value = inputElevation.value = '';
 
 		// Display marker
-		const {lat, lng} = this.#mapEvent.latlng;
+
 		L.marker([lat, lng])
 			.addTo(this.#map)
 			.bindPopup(L.popup({
