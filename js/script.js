@@ -146,6 +146,7 @@ class App {
 		const distance = +inputDistance.value;
 		const duration = +inputDuration.value;
 		const {lat, lng} = this.#mapEvent.latlng;
+		let workout;
 
 
 
@@ -159,9 +160,7 @@ class App {
 			)
 				return alert('Inputs must be positive numbers!');
 
-			// step: Add new object to workout array
-			const workout = new Running([lat, lng],  distance, duration, cadence);
-			this.#workouts.push(workout);
+			workout = new Running([lat, lng],  distance, duration, cadence);
 		}
 
 
@@ -178,7 +177,8 @@ class App {
 		}
 
 
-
+		// step: Add new object to workout array
+		this.#workouts.push(workout);
 
 
 
